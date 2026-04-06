@@ -1,0 +1,9 @@
+{
+  "name": "orc",
+  "description": "TaskOrc — your personal AI project manager. Plan, execute, and remember across all your projects.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Josh Evensen"
+  },
+  "repository": "https://github.com/joshevensen/taskorc"
+}
