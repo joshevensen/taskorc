@@ -1,5 +1,5 @@
 ---
-status: planned
+status: complete
 priority: 2
 ---
 
@@ -11,14 +11,14 @@ Define all six SQLAlchemy models in Python. Alembic will generate the database s
 
 ## Acceptance Criteria
 
-- [ ] `app/models/base.py` defines a `DeclarativeBase` with `id` (UUID, default generated), `created_at`, and `updated_at` columns shared across all models
-- [ ] All six models are defined: `User`, `Project`, `Task`, `Note`, `Log`, `Artifact`
-- [ ] JSONB columns are used for `settings`, `tech_stack`, `subtasks`, `acceptance_criteria`, and `metadata`
-- [ ] PostgreSQL enums are defined for `Task.status`, `Task.execution_mode`, `Note.category`, `Log.outcome`, `Artifact.type`, and `Artifact.parent_type`
-- [ ] All foreign keys are declared with appropriate `ondelete` behaviour
-- [ ] SQLAlchemy `relationship()` declarations exist for all associations
-- [ ] All models are imported in `app/models/__init__.py` so Alembic can discover them
-- [ ] `from app.models import User, Project, Task, Note, Log, Artifact` works without error
+- [x] `app/models/base.py` defines a `DeclarativeBase` with `id` (UUID, default generated), `created_at`, and `updated_at` columns shared across all models
+- [x] All six models are defined: `User`, `Project`, `Task`, `Note`, `Log`, `Artifact`
+- [x] JSONB columns are used for `settings`, `tech_stack`, `subtasks`, `acceptance_criteria`, and `metadata`
+- [x] PostgreSQL enums are defined for `Task.status`, `Task.execution_mode`, `Note.category`, `Log.outcome`, `Artifact.type`, and `Artifact.parent_type`
+- [x] All foreign keys are declared with appropriate `ondelete` behaviour
+- [x] SQLAlchemy `relationship()` declarations exist for all associations
+- [x] All models are imported in `app/models/__init__.py` so Alembic can discover them
+- [x] `from app.models import User, Project, Task, Note, Log, Artifact` works without error
 
 ## Subtasks
 
