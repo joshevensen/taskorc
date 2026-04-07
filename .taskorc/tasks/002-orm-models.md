@@ -22,7 +22,7 @@ Define all six SQLAlchemy models in Python. Alembic will generate the database s
 
 ## Subtasks
 
-### 2.1 — Base model
+### 1 — Base model
 
 Create the declarative base with shared columns.
 
@@ -30,19 +30,19 @@ Create the declarative base with shared columns.
 
 ---
 
-### 2.2 — User model
+### 2 — User model
 
 **Prompt:** Create `api/app/models/user.py`. Define `User(Base, TimestampMixin)` with table name `users` and columns: `name` (String, not nullable), `email` (String, unique, not nullable, indexed), `pat_hash` (Text, nullable — stores bcrypt hash of the active PAT), `settings` (JSONB, nullable, default `{}`), `founder_notes` (Text, nullable). Add a `relationship("Project", back_populates="user", cascade="all, delete-orphan")`. Email must have a unique constraint.
 
 ---
 
-### 2.3 — Project model
+### 3 — Project model
 
 **Prompt:** Create `api/app/models/project.py`. Define `Project(Base, TimestampMixin)` with table name `projects` and columns: `user_id` (UUID FK → `users.id`, ondelete CASCADE, not nullable), `name` (String, not nullable), `description` (Text, nullable), `repo_url` (String, nullable), `tech_stack` (JSONB, nullable, default `[]`), `branch_prefix` (String, nullable), `base_branch` (String, nullable, default `"main"`), `test_command` (String, nullable), `lint_command` (String, nullable), `format_command` (String, nullable). Add relationships to `User`, `Task`, `Note`, `Log`, `Artifact` with appropriate `back_populates` and `cascade="all, delete-orphan"`.
 
 ---
 
-### 2.4 — Task model
+### 4 — Task model
 
 **Prompt:** Create `api/app/models/task.py`. Define PostgreSQL enums using `sqlalchemy.dialects.postgresql.ENUM`:
 - `task_status`: `draft`, `planned`, `in_progress`, `complete`, `failed`, `on_hold`, `cancelled`
@@ -52,19 +52,19 @@ Define `Task(Base, TimestampMixin)` with table name `tasks` and columns: `projec
 
 ---
 
-### 2.5 — Note model
+### 5 — Note model
 
 **Prompt:** Create `api/app/models/note.py`. Define a `note_category` PostgreSQL enum: `product`, `strategy`, `users`, `market`, `decisions`, `constraints`, `goals`, `general`. Define `Note(Base, TimestampMixin)` with table name `notes` and columns: `project_id` (UUID FK → `projects.id`, ondelete CASCADE, not nullable), `title` (String, not nullable), `body` (Text, not nullable), `category` (note_category enum, not nullable). Add relationship to `Project`.
 
 ---
 
-### 2.6 — Log model
+### 6 — Log model
 
 **Prompt:** Create `api/app/models/log.py`. Define a `log_outcome` PostgreSQL enum: `success`, `failure`, `skipped`. Define `Log(Base, TimestampMixin)` with table name `logs` and columns: `project_id` (UUID FK → `projects.id`, ondelete CASCADE, not nullable), `task_id` (UUID FK → `tasks.id`, ondelete SET NULL, nullable), `skill` (String, not nullable), `duration` (Integer, nullable, in milliseconds), `outcome` (log_outcome enum, not nullable), `summary` (Text, nullable), `metadata` (JSONB, nullable). Logs must never be updated or deleted — enforce at the service layer, not the DB layer. Add relationships to `Project` and `Task`.
 
 ---
 
-### 2.7 — Artifact model
+### 7 — Artifact model
 
 **Prompt:** Create `api/app/models/artifact.py`. Define PostgreSQL enums:
 - `artifact_type`: `figma`, `video`, `document`, `error_log`, `screenshot`, `other`
@@ -74,13 +74,13 @@ Define `Artifact(Base, TimestampMixin)` with table name `artifacts` and columns:
 
 ---
 
-### 2.8 — Wire models into package
+### 8 — Wire models into package
 
 **Prompt:** Update `api/app/models/__init__.py` to import all models: `from .user import User`, `from .project import Project`, `from .task import Task`, `from .note import Note`, `from .log import Log`, `from .artifact import Artifact`. This ensures Alembic's autogenerate sees all models when it imports the package. Confirm `from app.models import User, Project, Task, Note, Log, Artifact` works from the `api/` directory.
 
 ---
 
-### 2.9 — Commit and push
+### 9 — Commit and push
 
 **Prompt:** From the repo root, stage and commit all changes from this phase, then push:
 ```bash

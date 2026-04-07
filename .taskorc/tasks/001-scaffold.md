@@ -22,7 +22,7 @@ Set up the foundational structure of the API before writing any domain code. Thi
 
 ## Subtasks
 
-### 1.1 — Install dependencies
+### 1 — Install dependencies
 
 Add all required packages to `pyproject.toml` and run `uv sync`.
 
@@ -30,7 +30,7 @@ Add all required packages to `pyproject.toml` and run `uv sync`.
 
 ---
 
-### 1.2 — Create directory structure
+### 2 — Create directory structure
 
 Scaffold the `app/` package and all subdirectories with `__init__.py` files.
 
@@ -48,7 +48,7 @@ Do not add any logic yet — just the empty files.
 
 ---
 
-### 1.3 — Config / settings
+### 3 — Config / settings
 
 Create `app/core/config.py` that loads env vars and exposes a `settings` singleton.
 
@@ -56,7 +56,7 @@ Create `app/core/config.py` that loads env vars and exposes a `settings` singlet
 
 ---
 
-### 1.4 — Database session
+### 4 — Database session
 
 Create the async SQLAlchemy engine and session dependency.
 
@@ -64,7 +64,7 @@ Create the async SQLAlchemy engine and session dependency.
 
 ---
 
-### 1.5 — Environment files
+### 5 — Environment files
 
 Create `.env.example` and local `.env`.
 
@@ -80,7 +80,7 @@ Then create `api/.env` (gitignored) with real local values filled in. Confirm `a
 
 ---
 
-### 1.6 — App factory
+### 6 — App factory
 
 Update `main.py` to use the app structure.
 
@@ -88,7 +88,7 @@ Update `main.py` to use the app structure.
 
 ---
 
-### 1.7 — Commit and push
+### 7 — Commit and push
 
 **Prompt:** From the repo root, stage and commit all changes from this phase, then push:
 ```bash

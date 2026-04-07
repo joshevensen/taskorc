@@ -23,7 +23,7 @@ Do not move to task 5 until `get_current_user` is working and tested.
 
 ## Subtasks
 
-### 4.1 — PAT utilities
+### 1 — PAT utilities
 
 **Prompt:** Create `api/app/core/auth.py`. Implement three functions using `passlib.hash.bcrypt`:
 
@@ -35,7 +35,7 @@ Do not move to task 5 until `get_current_user` is working and tested.
 
 ---
 
-### 4.2 — Auth router
+### 2 — Auth router
 
 **Prompt:** Create `api/app/routers/auth.py` with two endpoints:
 
@@ -47,7 +47,7 @@ Register the router in `main.py` with prefix `/auth` and tag `auth`.
 
 ---
 
-### 4.3 — Auth dependency
+### 3 — Auth dependency
 
 **Prompt:** Add `get_current_user` to `api/app/core/auth.py`. Implement it as a FastAPI dependency:
 
@@ -61,13 +61,13 @@ Note on step 3: with a single-user system, a linear scan is fine. If this ever b
 
 ---
 
-### 4.4 — Update User model
+### 4 — Update User model
 
 **Prompt:** Update `api/app/models/user.py` to add `pat_hash` (Text, nullable) to the `User` model. This field stores the bcrypt hash of the current active PAT. `NULL` means no active token (logged out). Run `alembic revision --autogenerate -m "add pat_hash to users"` and `alembic upgrade head` to apply.
 
 ---
 
-### 4.5 — Smoke test
+### 5 — Smoke test
 
 **Prompt:** Start the dev server. Manually verify the full flow:
 1. `POST /auth/token` with name and email → receive raw `orc_...` token
@@ -79,7 +79,7 @@ Note on step 3: with a single-user system, a linear scan is fine. If this ever b
 
 ---
 
-### 4.6 — Commit and push
+### 6 — Commit and push
 
 **Prompt:** From the repo root, stage and commit all changes from this phase, then push:
 ```bash

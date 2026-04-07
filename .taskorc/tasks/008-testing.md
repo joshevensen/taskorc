@@ -22,7 +22,7 @@ Write automated tests covering auth, CRUD, authorization, and business logic. Te
 
 ## Subtasks
 
-### 8.1 — Test setup and fixtures
+### 1 — Test setup and fixtures
 
 **Prompt:** Create `api/tests/conftest.py`. Set up:
 
@@ -38,7 +38,7 @@ Write automated tests covering auth, CRUD, authorization, and business logic. Te
 
 ---
 
-### 8.2 — Auth tests
+### 2 — Auth tests
 
 **Prompt:** Create `api/tests/test_auth.py`. Test:
 
@@ -51,7 +51,7 @@ Write automated tests covering auth, CRUD, authorization, and business logic. Te
 
 ---
 
-### 8.3 — CRUD tests
+### 3 — CRUD tests
 
 **Prompt:** Create `api/tests/test_crud.py`. Write at least one happy-path test per endpoint group using the `auth_headers` and `seeded_data` fixtures:
 
@@ -66,7 +66,7 @@ Verify correct status codes (200, 201, 204) and that response bodies match the e
 
 ---
 
-### 8.4 — Authorization tests
+### 4 — Authorization tests
 
 **Prompt:** Create `api/tests/test_authz.py`. Create two users (user A and user B) with separate auth headers. Seed data under user A. Verify user B receives 403 on:
 
@@ -81,7 +81,7 @@ Verify correct status codes (200, 201, 204) and that response bodies match the e
 
 ---
 
-### 8.5 — Business logic tests
+### 5 — Business logic tests
 
 **Prompt:** Create `api/tests/test_business_logic.py`. Test:
 
@@ -93,7 +93,7 @@ Verify correct status codes (200, 201, 204) and that response bodies match the e
 
 ---
 
-### 8.6 — Commit and push
+### 6 — Commit and push
 
 **Prompt:** From the repo root, stage and commit all changes from this phase, then push:
 ```bash

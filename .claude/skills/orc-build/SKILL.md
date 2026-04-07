@@ -1,31 +1,37 @@
-# /orc:build
+---
+name: orc-build
+description: Execute a task by working through its subtasks in order. Pass the task ID or filename.
+argument-hint: [task ID or filename]
+disable-model-invocation: true
+allowed-tools: Read Write Edit Bash Glob Grep
+model: claude-sonnet-4-6
+---
 
 Execute a task by working through its subtasks in order.
 
-## Arguments
+## Steps
 
-Accepts a task identifier as an argument — either the priority number (e.g. `/orc:build 2`) or the filename without extension (e.g. `/orc:build 2-orm-models`). If no argument is given, ask the user which task to build or suggest running `/orc:inbox` to see what's available.
+1. **Find the task file.** Match `$ARGUMENTS` against files in `.taskorc/tasks/`:
+   - If a 3-digit number, match `{ID}-*.md`
+   - If a filename fragment, match by name
+   - If ambiguous or missing, list available tasks and ask
 
-## What to do
+2. **Read and display** the task title, description, and acceptance criteria so the user can confirm before execution begins.
 
-1. Find the matching file in `.taskorc/tasks/`. If the argument is a number, match on files starting with that number. If ambiguous, list matches and ask.
+3. **Load context.** Check `.taskorc/artifacts/` for any files where `task:` frontmatter matches this task ID. Summarize their content as additional context before starting.
 
-2. Read the task file. Display the title, description, and acceptance criteria so the user can confirm before execution begins.
+4. **Update status.** Set `status: in_progress` in the task file frontmatter and write it.
 
-3. Load any artifacts in `.taskorc/artifacts/` that reference this task number. Summarize their content as additional context.
+5. **Execute subtasks in order**, one at a time:
+   - Display the subtask number and title before starting
+   - Execute the subtask's `**Prompt:**` as a Claude Code operation — read code, create files, edit, run commands as needed
+   - Confirm it's complete before moving to the next
+   - If a subtask fails, stop immediately and report what happened and what was completed — do not continue
 
-4. Update the task file's frontmatter: set `status: in_progress`. Write the file.
+6. After all subtasks complete: "All subtasks done. Run `/orc-complete {ID}` to close this task out."
 
-5. Work through each subtask in order, one at a time:
-   - Display the subtask title and description before starting
-   - Execute the subtask's **Prompt** as a Claude Code operation
-   - Confirm completion before moving to the next subtask
-   - If a subtask fails, stop and report what happened — do not continue to the next subtask
+## Rules
 
-6. After all subtasks are complete, remind the user to run `/orc:complete {task}` to close it out.
-
-## Notes
-
-- Do not skip subtasks. The order matters — later subtasks depend on earlier ones.
-- If the task status is already `complete`, say so and ask if the user wants to re-run it.
-- The commit and push subtask (always the last one) should be run as written — do not skip it.
+- Do not skip subtasks. Order matters.
+- If status is already `complete`, say so and ask whether to re-run.
+- The commit and push subtask is always last — run it as written.

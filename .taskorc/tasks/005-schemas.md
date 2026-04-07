@@ -22,13 +22,13 @@ Define all Pydantic v2 request and response schemas. These are the API's contrac
 
 ## Subtasks
 
-### 5.1 — Shared / base schemas
+### 1 — Shared / base schemas
 
 **Prompt:** Create `api/app/schemas/base.py`. Define a `BaseResponse` schema with `id: UUID`, `created_at: datetime`, `updated_at: datetime`. All `*Response` schemas will inherit from this. Configure `model_config = ConfigDict(from_attributes=True)` on `BaseResponse` so SQLAlchemy ORM objects can be passed directly to `model_validate`.
 
 ---
 
-### 5.2 — User schemas
+### 2 — User schemas
 
 **Prompt:** Create `api/app/schemas/user.py` with:
 
@@ -38,7 +38,7 @@ Define all Pydantic v2 request and response schemas. These are the API's contrac
 
 ---
 
-### 5.3 — Project schemas
+### 3 — Project schemas
 
 **Prompt:** Create `api/app/schemas/project.py` with:
 
@@ -50,7 +50,7 @@ Define all Pydantic v2 request and response schemas. These are the API's contrac
 
 ---
 
-### 5.4 — Task schemas
+### 4 — Task schemas
 
 **Prompt:** Create `api/app/schemas/task.py` with:
 
@@ -66,7 +66,7 @@ Define `TaskStatus` and `ExecutionMode` as Python `enum.Enum` classes in this fi
 
 ---
 
-### 5.5 — Note schemas
+### 5 — Note schemas
 
 **Prompt:** Create `api/app/schemas/note.py` with:
 
@@ -80,7 +80,7 @@ Define `NoteCategory` as a Python enum matching the PostgreSQL enum values: `pro
 
 ---
 
-### 5.6 — Log schemas
+### 6 — Log schemas
 
 **Prompt:** Create `api/app/schemas/log.py` with:
 
@@ -92,7 +92,7 @@ Define `LogOutcome` enum: `success`, `failure`, `skipped`. No `LogUpdate` — lo
 
 ---
 
-### 5.7 — Artifact schemas
+### 7 — Artifact schemas
 
 **Prompt:** Create `api/app/schemas/artifact.py` with:
 
@@ -106,13 +106,13 @@ Define `ArtifactType` enum: `figma`, `video`, `document`, `error_log`, `screensh
 
 ---
 
-### 5.8 — Wire schemas into package
+### 8 — Wire schemas into package
 
 **Prompt:** Update `api/app/schemas/__init__.py` to import and re-export all schemas and enums. Confirm `from app.schemas import TaskCreate, TaskResponse, SubtaskItem, NoteCategory, LogOutcome` and all other schemas are importable without error.
 
 ---
 
-### 5.9 — Commit and push
+### 9 — Commit and push
 
 **Prompt:** From the repo root, stage and commit all changes from this phase, then push:
 ```bash

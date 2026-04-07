@@ -24,7 +24,7 @@ Implement all API endpoints. One router + one service file per entity. The route
 
 ## Subtasks
 
-### 6.1 — User router & service
+### 1 — User router & service
 
 **Prompt:** Create `api/app/services/user.py` and `api/app/routers/user.py`.
 
@@ -40,7 +40,7 @@ Register with prefix `/users`, tag `users`.
 
 ---
 
-### 6.2 — Projects router & service
+### 2 — Projects router & service
 
 **Prompt:** Create `api/app/services/project.py` and `api/app/routers/project.py`.
 
@@ -60,7 +60,7 @@ Register with prefix `/projects`, tag `projects`.
 
 ---
 
-### 6.3 — Tasks router & service
+### 3 — Tasks router & service
 
 **Prompt:** Create `api/app/services/task.py` and `api/app/routers/task.py`.
 
@@ -86,7 +86,7 @@ Register with tag `tasks`. Task routes split across two prefixes — `/projects`
 
 ---
 
-### 6.4 — Notes router & service
+### 4 — Notes router & service
 
 **Prompt:** Create `api/app/services/note.py` and `api/app/routers/note.py`.
 
@@ -108,7 +108,7 @@ Register with tag `notes`.
 
 ---
 
-### 6.5 — Logs router & service
+### 5 — Logs router & service
 
 **Prompt:** Create `api/app/services/log.py` and `api/app/routers/log.py`.
 
@@ -126,7 +126,7 @@ Register with tag `logs`.
 
 ---
 
-### 6.6 — Artifacts router & service
+### 6 — Artifacts router & service
 
 **Prompt:** Create `api/app/services/artifact.py` and `api/app/routers/artifact.py`.
 
@@ -146,13 +146,13 @@ Register with prefix `/artifacts`, tag `artifacts`.
 
 ---
 
-### 6.7 — Register all routers
+### 7 — Register all routers
 
 **Prompt:** Update `api/main.py` to import and register all six routers with their prefixes and tags. Start the dev server and open `/docs`. Verify every endpoint appears, all request bodies show the correct schema, and all response schemas are documented. Fix any missing imports or registration issues.
 
 ---
 
-### 6.8 — Commit and push
+### 8 — Commit and push
 
 **Prompt:** From the repo root, stage and commit all changes from this phase, then push:
 ```bash

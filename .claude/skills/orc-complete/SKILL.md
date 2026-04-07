@@ -1,23 +1,26 @@
-# /orc:complete
+---
+name: orc-complete
+description: Mark a task as complete after confirming all acceptance criteria are met.
+argument-hint: [task ID or filename]
+disable-model-invocation: true
+allowed-tools: Read Write Glob
+model: claude-haiku-4-5-20251001
+---
 
-Mark a task as complete.
+Close out a completed task.
 
-## Arguments
+## Steps
 
-Accepts a task identifier — priority number or filename. If no argument is given, ask which task.
-
-## What to do
-
-1. Find and read the matching file in `.taskorc/tasks/`.
+1. Match `$ARGUMENTS` against files in `.taskorc/tasks/`. If missing or ambiguous, list options and ask.
 
 2. If status is already `complete`, say so and stop.
 
-3. Show the acceptance criteria and ask the user to confirm all criteria are actually met before marking complete. If any are unchecked, surface them clearly — do not auto-complete without confirmation.
+3. Display the acceptance criteria and ask: "Are all of these done?" Surface any unchecked items clearly. Do not proceed without explicit confirmation.
 
 4. Update the file:
    - Set `status: complete` in frontmatter
-   - Check all acceptance criteria boxes (`- [ ]` → `- [x]`)
+   - Check all acceptance criteria (`- [ ]` → `- [x]`)
 
 5. Write the updated file.
 
-6. Display a summary: task title, number of subtasks completed, and a prompt to push if the commit subtask was skipped.
+6. Confirm: "Task {ID} marked complete."

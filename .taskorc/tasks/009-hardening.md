@@ -20,25 +20,25 @@ Make the API production-ready. This task does not add features — it adds robus
 
 ## Subtasks
 
-### 9.1 — Global exception handler
+### 1 — Global exception handler
 
 **Prompt:** In `api/main.py`, add a global exception handler using `@app.exception_handler(Exception)`. It should catch any unhandled exception, log it (use Python's `logging` module, not `print`), and return a JSON response with status 500 and body `{"detail": "Internal server error"}`. Do not expose the exception message or stack trace in the response body. FastAPI's built-in `RequestValidationError` handler already returns 422 — do not override it.
 
 ---
 
-### 9.2 — CORS configuration
+### 2 — CORS configuration
 
 **Prompt:** Add `CORSMiddleware` to the FastAPI app in `api/main.py`. Read allowed origins from `settings.CORS_ORIGINS` (a comma-separated string — split and strip whitespace). The CLI is the only client — there is no browser frontend in production. Configure `allow_methods=["*"]` and `allow_headers=["Authorization", "Content-Type"]`. Do not use `allow_origins=["*"]` in any config.
 
 ---
 
-### 9.3 — Final env var audit
+### 3 — Final env var audit
 
 **Prompt:** Review `api/app/core/config.py` and `api/.env.example`. Verify every env var the application reads is: declared in `Settings`, present in `.env.example` with a description comment, and listed in `api/README.md` under a "Configuration" section. Ensure `.env` is in `api/.gitignore` and that no secrets appear in any committed file.
 
 ---
 
-### 9.4 — Commit and push
+### 4 — Commit and push
 
 **Prompt:** From the repo root, stage and commit all changes from this phase, then push:
 ```bash

@@ -1,24 +1,27 @@
-# /orc:status
+---
+name: orc-status
+description: Show the full status of a specific task — description, acceptance criteria, subtasks, and linked artifacts.
+argument-hint: [task ID or filename]
+disable-model-invocation: true
+allowed-tools: Read Glob
+model: claude-haiku-4-5-20251001
+---
 
-Show the full status of a specific task.
+Show the full status of a task.
 
-## Arguments
+## Steps
 
-Accepts a task identifier — priority number or filename. If no argument is given, ask which task.
+1. Match `$ARGUMENTS` against files in `.taskorc/tasks/`. If missing or ambiguous, list options and ask.
 
-## What to do
-
-1. Find and read the matching file in `.taskorc/tasks/`.
-
-2. Display a plain-language summary:
+2. Read and display:
    - **Status** and **priority**
    - **Description** in full
-   - **Acceptance criteria** — show checked and unchecked items clearly
-   - **Subtasks** — list all with their titles (no need to show full prompts)
-   - **Artifacts** — list any files in `.taskorc/artifacts/` that reference this task
+   - **Acceptance criteria** — checked and unchecked items clearly distinguished
+   - **Subtasks** — titles only (not full prompts)
+   - **Artifacts** — list any `.taskorc/artifacts/` files where `task:` frontmatter matches this ID
 
-3. End with a one-line "what's next" recommendation based on the current status:
-   - `planned` → "Run `/orc:build {n}` to start this task."
-   - `in_progress` → "This task is in progress. Run `/orc:build {n}` to continue."
+3. End with a one-line next step:
+   - `planned` → "Run `/orc-build {ID}` to start."
+   - `in_progress` → "Run `/orc-build {ID}` to continue."
    - `complete` → "This task is complete."
    - `on_hold` → "This task is on hold."

@@ -24,49 +24,49 @@ The guards live in services, not routers. Routers pass the current user in; serv
 
 ## Subtasks
 
-### 7.1 — Ownership helper
+### 1 — Ownership helper
 
 **Prompt:** Create `api/app/services/ownership.py`. Implement `assert_project_owner(db: AsyncSession, project_id: UUID, user_id: UUID) -> Project`. Query the DB for the project. If not found or `project.user_id != user_id`, raise `HTTPException(status_code=403, detail="Forbidden")`. Return the `Project` object if ownership passes. This helper will be called at the top of any service function that operates on a project or its children.
 
 ---
 
-### 7.2 — Guard project service
+### 2 — Guard project service
 
 **Prompt:** Update `api/app/services/project.py`. Add `user_id: UUID` parameter to `get_project`, `update_project`. At the start of each function call `assert_project_owner(db, project_id, user_id)`. For `list_projects` the query already filters by `user_id` — no additional check needed. Pass `current_user.id` from the router into these service calls.
 
 ---
 
-### 7.3 — Guard task service
+### 3 — Guard task service
 
 **Prompt:** Update `api/app/services/task.py`. Every function that takes a `project_id` must call `assert_project_owner(db, project_id, user_id)` first. For functions that take a `task_id` directly (get, update, set_subtasks, complete_subtask), load the task first, then call `assert_project_owner` using `task.project_id`. Add `user_id: UUID` parameter to all affected functions and pass `current_user.id` from the router.
 
 ---
 
-### 7.4 — Guard note service
+### 4 — Guard note service
 
 **Prompt:** Update `api/app/services/note.py`. Apply the same pattern as tasks: project-scoped functions call `assert_project_owner` up front; note-scoped functions load the note first then check `note.project_id`. Add `user_id: UUID` to all affected functions.
 
 ---
 
-### 7.5 — Guard log service
+### 5 — Guard log service
 
 **Prompt:** Update `api/app/services/log.py`. Add `assert_project_owner` call at the start of both `create_log` and `list_logs`. Add `user_id: UUID` parameter to both functions and pass `current_user.id` from the router.
 
 ---
 
-### 7.6 — Guard artifact service
+### 6 — Guard artifact service
 
 **Prompt:** Update `api/app/services/artifact.py`. For `create_artifact`, resolve the parent (project or task) and verify the user owns it before creating. For `get_artifact`, `update_artifact`, and `list_artifacts`, resolve ownership through the artifact's `parent_type` and `parent_id`. If the parent is a task, traverse to its project to check ownership. Raise 403 on any ownership failure.
 
 ---
 
-### 7.7 — Update routers to pass user_id
+### 7 — Update routers to pass user_id
 
 **Prompt:** Review all routers in `api/app/routers/`. Wherever a service function now requires `user_id`, pass `current_user.id` (where `current_user` comes from `Depends(get_current_user)`). No router should be doing ownership logic itself — just forwarding the user ID into the service.
 
 ---
 
-### 7.8 — Commit and push
+### 8 — Commit and push
 
 **Prompt:** From the repo root, stage and commit all changes from this phase, then push:
 ```bash

@@ -1,30 +1,37 @@
-# /orc:attach
+---
+name: orc-attach
+description: Attach external context to a task — a URL, Figma link, error log, reference doc, or anything else worth keeping alongside the work.
+argument-hint: [url] [task ID]
+disable-model-invocation: true
+allowed-tools: Read Write Glob
+model: claude-haiku-4-5-20251001
+---
 
-Attach external context to a task — a URL, Figma link, reference doc, error log, or anything else worth keeping alongside the work.
+Attach an artifact to a task or the project.
 
-## What to do
+## Steps
 
-1. Ask the user for:
+1. Parse `$ARGUMENTS` for a URL (`$0`) and optional task ID (`$1`). Ask for anything missing:
    - **URL** — the external link
-   - **Title** — short name for the reference (suggest one based on the URL if possible)
-   - **Task** — which task number this belongs to (optional — can be project-level)
-   - **Type** — one of: `figma`, `video`, `document`, `error_log`, `screenshot`, `other` (infer from URL if obvious)
-   - **Notes** — optional free-text summary or context about this artifact
+   - **Title** — short name (suggest one based on the URL)
+   - **Task ID** — which task this belongs to, or "project" for project-level
+   - **Type** — infer from URL if obvious, otherwise ask: `figma`, `video`, `document`, `error_log`, `screenshot`, `other`
+   - **Notes** — optional context or summary
 
-2. Generate a filename slug from the title.
+2. Generate a filename slug from the title (lowercase, hyphens).
 
-3. Write the artifact to `.taskorc/artifacts/{slug}.md`:
+3. Write to `.taskorc/artifacts/{slug}.md`:
 
 ```markdown
 ---
 type: {type}
-task: {task number or "project"}
+task: {task ID or "project"}
 url: {url}
 ---
 
 # {Title}
 
-{notes if provided, otherwise leave blank}
+{notes if provided}
 ```
 
-4. Confirm the file was created and show the path.
+4. Confirm: "Artifact saved to `.taskorc/artifacts/{slug}.md`."
