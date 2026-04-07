@@ -90,14 +90,3 @@ Verify correct status codes (200, 201, 204) and that response bodies match the e
 **Subtask completion:** Create a task with two subtasks. POST to complete the first subtask. GET the task and verify only the first subtask has `completed=true`.
 
 **Log append-only:** Verify no `PATCH /logs/{id}` or `DELETE /logs/{id}` routes exist (expect 405 or 404). Verify a created log is returned in `GET /projects/{id}/logs`.
-
----
-
-### 6 — Commit and push
-
-**Prompt:** From the repo root, stage and commit all changes from this phase, then push:
-```bash
-git add api/tests/
-git commit -m "test(api): phase 8 — auth, CRUD, authz, and business logic tests"
-git push
-```

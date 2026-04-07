@@ -77,14 +77,3 @@ Define `Artifact(Base, TimestampMixin)` with table name `artifacts` and columns:
 ### 8 — Wire models into package
 
 **Prompt:** Update `api/app/models/__init__.py` to import all models: `from .user import User`, `from .project import Project`, `from .task import Task`, `from .note import Note`, `from .log import Log`, `from .artifact import Artifact`. This ensures Alembic's autogenerate sees all models when it imports the package. Confirm `from app.models import User, Project, Task, Note, Log, Artifact` works from the `api/` directory.
-
----
-
-### 9 — Commit and push
-
-**Prompt:** From the repo root, stage and commit all changes from this phase, then push:
-```bash
-git add api/app/models/
-git commit -m "feat(api): phase 2 — ORM models"
-git push
-```

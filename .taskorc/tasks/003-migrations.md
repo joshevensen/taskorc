@@ -62,14 +62,3 @@ Fix any missing or incorrect items manually in the migration file before proceed
 ### 5 — Verify downgrade
 
 **Prompt:** Run `alembic downgrade base` and confirm it reverses cleanly — all tables are dropped and all enum types are removed. Then run `alembic upgrade head` again to restore the schema. A clean downgrade proves the migration is reversible and the enum drop order is correct.
-
----
-
-### 6 — Commit and push
-
-**Prompt:** From the repo root, stage and commit all changes from this phase, then push:
-```bash
-git add api/alembic/ api/alembic.ini
-git commit -m "feat(api): phase 3 — Alembic migrations"
-git push
-```

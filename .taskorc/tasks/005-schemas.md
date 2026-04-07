@@ -109,14 +109,3 @@ Define `ArtifactType` enum: `figma`, `video`, `document`, `error_log`, `screensh
 ### 8 — Wire schemas into package
 
 **Prompt:** Update `api/app/schemas/__init__.py` to import and re-export all schemas and enums. Confirm `from app.schemas import TaskCreate, TaskResponse, SubtaskItem, NoteCategory, LogOutcome` and all other schemas are importable without error.
-
----
-
-### 9 — Commit and push
-
-**Prompt:** From the repo root, stage and commit all changes from this phase, then push:
-```bash
-git add api/app/schemas/
-git commit -m "feat(api): phase 5 — Pydantic schemas"
-git push
-```

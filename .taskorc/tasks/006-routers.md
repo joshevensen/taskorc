@@ -149,14 +149,3 @@ Register with prefix `/artifacts`, tag `artifacts`.
 ### 7 — Register all routers
 
 **Prompt:** Update `api/main.py` to import and register all six routers with their prefixes and tags. Start the dev server and open `/docs`. Verify every endpoint appears, all request bodies show the correct schema, and all response schemas are documented. Fix any missing imports or registration issues.
-
----
-
-### 8 — Commit and push
-
-**Prompt:** From the repo root, stage and commit all changes from this phase, then push:
-```bash
-git add api/app/routers/ api/app/services/ api/main.py
-git commit -m "feat(api): phase 6 — routers and services"
-git push
-```

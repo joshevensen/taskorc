@@ -1,3 +1,19 @@
+## Draft template — created by orc-create
+
+---
+status: draft
+priority: {ID}
+---
+
+# {ID} — {Title}
+
+## Description
+
+{What you want to build and why. Can be rough — this is just to get the idea captured.}
+
+
+## Planned template — filled in by orc-plan
+
 ---
 status: planned
 priority: {ID}
@@ -7,7 +23,7 @@ priority: {ID}
 
 ## Description
 
-{Full description of what needs to be built and why. Be specific about the problem being solved and what the outcome should look like.}
+{Refined description of what needs to be built and why.}
 
 ## Acceptance Criteria
 

@@ -76,14 +76,3 @@ Note on step 3: with a single-user system, a linear scan is fine. If this ever b
 4. `GET /users/me` with no header → receive 401
 5. `DELETE /auth/token` with valid token → receive revocation message
 6. `GET /users/me` with the now-revoked token → receive 401
-
----
-
-### 6 — Commit and push
-
-**Prompt:** From the repo root, stage and commit all changes from this phase, then push:
-```bash
-git add api/app/core/auth.py api/app/routers/auth.py api/app/models/user.py api/alembic/versions/
-git commit -m "feat(api): phase 4 — PAT authentication"
-git push
-```

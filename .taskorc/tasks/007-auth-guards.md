@@ -63,14 +63,3 @@ The guards live in services, not routers. Routers pass the current user in; serv
 ### 7 — Update routers to pass user_id
 
 **Prompt:** Review all routers in `api/app/routers/`. Wherever a service function now requires `user_id`, pass `current_user.id` (where `current_user` comes from `Depends(get_current_user)`). No router should be doing ownership logic itself — just forwarding the user ID into the service.
-
----
-
-### 8 — Commit and push
-
-**Prompt:** From the repo root, stage and commit all changes from this phase, then push:
-```bash
-git add api/app/services/ api/app/routers/
-git commit -m "feat(api): phase 7 — authorization guards"
-git push
-```

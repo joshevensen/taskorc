@@ -35,14 +35,3 @@ Make the API production-ready. This task does not add features — it adds robus
 ### 3 — Final env var audit
 
 **Prompt:** Review `api/app/core/config.py` and `api/.env.example`. Verify every env var the application reads is: declared in `Settings`, present in `.env.example` with a description comment, and listed in `api/README.md` under a "Configuration" section. Ensure `.env` is in `api/.gitignore` and that no secrets appear in any committed file.
-
----
-
-### 4 — Commit and push
-
-**Prompt:** From the repo root, stage and commit all changes from this phase, then push:
-```bash
-git add api/main.py api/app/core/config.py api/.env.example api/README.md
-git commit -m "feat(api): phase 9 — hardening"
-git push
-```

@@ -85,14 +85,3 @@ Then create `api/.env` (gitignored) with real local values filled in. Confirm `a
 Update `main.py` to use the app structure.
 
 **Prompt:** Update `api/main.py` to import `settings` from `app.core.config` and create the FastAPI app with a `title` of `"TaskOrc API"` and `version` of `"0.1.0"`. Add a `/health` GET endpoint that returns `{"status": "ok"}`. The root `Hello World` endpoint can be removed. Confirm `uv run fastapi dev` starts without errors and `/health` returns 200.
-
----
-
-### 7 — Commit and push
-
-**Prompt:** From the repo root, stage and commit all changes from this phase, then push:
-```bash
-git add api/pyproject.toml api/uv.lock api/main.py api/app/ api/tests/ api/.env.example api/.gitignore
-git commit -m "feat(api): phase 1 — project scaffolding"
-git push
-```
