@@ -1,4 +1,9 @@
-# Phase 1 — Project Scaffolding
+---
+status: complete
+priority: 1
+---
+
+# 1 — Project Scaffolding
 
 ## Description
 
@@ -6,14 +11,14 @@ Set up the foundational structure of the API before writing any domain code. Thi
 
 ## Acceptance Criteria
 
-- [ ] All dependencies are declared in `pyproject.toml` and installable via `uv sync`
-- [ ] The `app/` directory structure exists with `core/`, `models/`, `schemas/`, `routers/`, `services/` subdirectories
-- [ ] `app/core/config.py` loads all required env vars via `pydantic-settings` and raises a clear error on startup if any are missing
-- [ ] `app/core/db.py` exports an async SQLAlchemy engine and a `get_db` dependency that yields an `AsyncSession`
-- [ ] `main.py` creates the FastAPI app instance and is importable without error
-- [ ] `.env.example` documents every required env var with a description comment
-- [ ] `.env` is present locally and gitignored
-- [ ] `uv run fastapi dev` starts the server without errors
+- [x] All dependencies are declared in `pyproject.toml` and installable via `uv sync`
+- [x] The `app/` directory structure exists with `core/`, `models/`, `schemas/`, `routers/`, `services/` subdirectories
+- [x] `app/core/config.py` loads all required env vars via `pydantic-settings` and raises a clear error on startup if any are missing
+- [x] `app/core/db.py` exports an async SQLAlchemy engine and a `get_db` dependency that yields an `AsyncSession`
+- [x] `main.py` creates the FastAPI app instance and is importable without error
+- [x] `.env.example` documents every required env var with a description comment
+- [x] `.env` is present locally and gitignored
+- [x] `uv run fastapi dev` starts the server without errors
 
 ## Subtasks
 

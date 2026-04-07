@@ -1,4 +1,9 @@
-# Phase 5 — Pydantic Schemas
+---
+status: planned
+priority: 5
+---
+
+# 5 — Pydantic Schemas
 
 ## Description
 
@@ -51,7 +56,7 @@ Define all Pydantic v2 request and response schemas. These are the API's contrac
 
 `SubtaskItem` — fields: `id: str`, `description: str`, `prompt: str`, `completed: bool = False`
 
-`TaskCreate` — fields: `title: str`, `description: str | None = None`, `problem: str | None = None`, `acceptance_criteria: list[str] | None = None`, `priority: int | None = None`, `status: TaskStatus = TaskStatus.draft` (use a `TaskStatus` Python enum matching the DB enum values)
+`TaskCreate` — fields: `title: str`, `description: str | None = None`, `problem: str | None = None`, `acceptance_criteria: list[str] | None = None`, `priority: int | None = None`, `status: TaskStatus = TaskStatus.draft`
 
 `TaskUpdate` — all fields from `TaskCreate` optional, plus: `branch: str | None = None`, `pr_url: str | None = None`, `execution_mode: ExecutionMode | None = None`
 

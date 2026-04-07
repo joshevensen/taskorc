@@ -1,8 +1,13 @@
-# Phase 9 — Hardening
+---
+status: planned
+priority: 9
+---
+
+# 9 — Hardening
 
 ## Description
 
-Make the API production-ready. This phase does not add features — it adds robustness. Consistent error responses, locked-down CORS, and a final audit of all env var documentation.
+Make the API production-ready. This task does not add features — it adds robustness. Consistent error responses, locked-down CORS, and a final audit of all env var documentation.
 
 ## Acceptance Criteria
 

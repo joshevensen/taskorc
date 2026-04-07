@@ -1,8 +1,13 @@
-# Phase 7 — Authorization Guards
+---
+status: planned
+priority: 7
+---
+
+# 7 — Authorization Guards
 
 ## Description
 
-Every resource must be scoped to the authenticated user. Phase 6 wired up auth via `get_current_user` but did not enforce ownership — a user could request any project by ID and get a response. This phase adds ownership checks in services so that cross-user access returns 403, not leaked data.
+Every resource must be scoped to the authenticated user. Task 6 wired up auth via `get_current_user` but did not enforce ownership — a user could request any project by ID and get a response. This task adds ownership checks in services so that cross-user access returns 403, not leaked data.
 
 The guards live in services, not routers. Routers pass the current user in; services verify ownership before executing the query.
 

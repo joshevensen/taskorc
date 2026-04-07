@@ -1,4 +1,9 @@
-# Phase 2 — ORM Models
+---
+status: planned
+priority: 2
+---
+
+# 2 — ORM Models
 
 ## Description
 
@@ -27,7 +32,7 @@ Create the declarative base with shared columns.
 
 ### 2.2 — User model
 
-**Prompt:** Create `api/app/models/user.py`. Define `User(Base, TimestampMixin)` with table name `users` and columns: `name` (String, not nullable), `email` (String, unique, not nullable, indexed), `settings` (JSONB, nullable, default `{}`), `founder_notes` (Text, nullable). Add a `relationship("Project", back_populates="user", cascade="all, delete-orphan")`. Email must have a unique constraint.
+**Prompt:** Create `api/app/models/user.py`. Define `User(Base, TimestampMixin)` with table name `users` and columns: `name` (String, not nullable), `email` (String, unique, not nullable, indexed), `pat_hash` (Text, nullable — stores bcrypt hash of the active PAT), `settings` (JSONB, nullable, default `{}`), `founder_notes` (Text, nullable). Add a `relationship("Project", back_populates="user", cascade="all, delete-orphan")`. Email must have a unique constraint.
 
 ---
 
@@ -55,7 +60,7 @@ Define `Task(Base, TimestampMixin)` with table name `tasks` and columns: `projec
 
 ### 2.6 — Log model
 
-**Prompt:** Create `api/app/models/log.py`. Define a `log_outcome` PostgreSQL enum: `success`, `failure`, `skipped`. Define `Log(Base, TimestampMixin)` with table name `logs` and columns: `project_id` (UUID FK → `projects.id`, ondelete CASCADE, not nullable), `task_id` (UUID FK → `tasks.id`, ondelete SET NULL, nullable), `skill` (String, not nullable), `duration` (Integer, nullable, in milliseconds), `outcome` (log_outcome enum, not nullable), `summary` (Text, nullable), `metadata` (JSONB, nullable). Note: `updated_at` from the mixin is inherited but logs must never be updated or deleted — this constraint is enforced at the service layer, not the DB layer. Add relationships to `Project` and `Task`.
+**Prompt:** Create `api/app/models/log.py`. Define a `log_outcome` PostgreSQL enum: `success`, `failure`, `skipped`. Define `Log(Base, TimestampMixin)` with table name `logs` and columns: `project_id` (UUID FK → `projects.id`, ondelete CASCADE, not nullable), `task_id` (UUID FK → `tasks.id`, ondelete SET NULL, nullable), `skill` (String, not nullable), `duration` (Integer, nullable, in milliseconds), `outcome` (log_outcome enum, not nullable), `summary` (Text, nullable), `metadata` (JSONB, nullable). Logs must never be updated or deleted — enforce at the service layer, not the DB layer. Add relationships to `Project` and `Task`.
 
 ---
 
@@ -65,7 +70,7 @@ Define `Task(Base, TimestampMixin)` with table name `tasks` and columns: `projec
 - `artifact_type`: `figma`, `video`, `document`, `error_log`, `screenshot`, `other`
 - `artifact_parent_type`: `project`, `task`
 
-Define `Artifact(Base, TimestampMixin)` with table name `artifacts` and columns: `user_id` (UUID FK → `users.id`, ondelete CASCADE, not nullable), `title` (String, not nullable), `url` (String, not nullable), `body` (Text, nullable), `type` (artifact_type enum, not nullable), `parent_type` (artifact_parent_type enum, not nullable), `parent_id` (UUID, not nullable). No FK constraint on `parent_id` — it is a polymorphic reference resolved at the service layer. Add relationship to `User`.
+Define `Artifact(Base, TimestampMixin)` with table name `artifacts` and columns: `user_id` (UUID FK → `users.id`, ondelete CASCADE, not nullable), `title` (String, not nullable), `url` (String, not nullable), `body` (Text, nullable), `type` (artifact_type enum, not nullable), `parent_type` (artifact_parent_type enum, not nullable), `parent_id` (UUID, not nullable). No FK constraint on `parent_id` — polymorphic reference resolved at the service layer. Add relationship to `User`.
 
 ---
 

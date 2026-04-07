@@ -1,4 +1,9 @@
-# Phase 8 — Testing
+---
+status: planned
+priority: 8
+---
+
+# 8 — Testing
 
 ## Description
 
@@ -8,7 +13,7 @@ Write automated tests covering auth, CRUD, authorization, and business logic. Te
 
 - [ ] `pytest` runs from `api/` with no configuration beyond setting `TEST_DATABASE_URL`
 - [ ] Fixtures provide: an async test client, a test database session, an authenticated user, and common seeded data (one project, one task, one note)
-- [ ] Auth tests cover: magic link request, verify flow, invalid token, expired token
+- [ ] Auth tests cover: PAT generation, valid token acceptance, invalid token rejection, revocation
 - [ ] CRUD tests cover at least one happy-path test per endpoint (create, read, update, delete where applicable)
 - [ ] Authorization tests verify a second user cannot access the first user's resources (returns 403)
 - [ ] Business logic tests cover: `task/next` returns lowest priority planned task, subtask completion marks correct subtask, log endpoints have no update/delete routes
@@ -27,7 +32,7 @@ Write automated tests covering auth, CRUD, authorization, and business logic. Te
 
 3. A `db_session` fixture that provides an `AsyncSession` connected to the test database, rolling back after each test.
 
-4. An `auth_headers` fixture that creates a test user directly in the DB and returns `{"Authorization": "Bearer <valid_jwt>"}` — bypass the magic link flow for test setup.
+4. An `auth_headers` fixture that creates a test user directly in the DB, generates a PAT, and returns `{"Authorization": "Bearer <pat>"}` — bypass the `POST /auth/token` endpoint for test setup speed.
 
 5. A `seeded_data` fixture that creates one Project, one Task (status=planned), and one Note using the service layer, returning them for use in tests.
 
@@ -37,12 +42,12 @@ Write automated tests covering auth, CRUD, authorization, and business logic. Te
 
 **Prompt:** Create `api/tests/test_auth.py`. Test:
 
-- `POST /auth/request` with a valid email returns 200 and `{"message": "Check your email..."}` (mock the Postmark call with `unittest.mock.patch` — do not send real emails in tests)
-- `GET /auth/verify?token=<valid_token>` returns 200 with `access_token`
-- `GET /auth/verify?token=<expired_token>` returns 401
-- `GET /auth/verify?token=tampered` returns 401
-- `GET /auth/verify` with no token returns 400
-- `POST /auth/logout` returns 200
+- `POST /auth/token` with name and email returns 200 with a token prefixed `orc_`
+- `GET /users/me` with the returned token returns 200
+- `GET /users/me` with a tampered token returns 401
+- `GET /users/me` with no Authorization header returns 401
+- `DELETE /auth/token` with a valid token returns 200
+- `GET /users/me` with the revoked token returns 401
 
 ---
 

@@ -1,8 +1,13 @@
-# Phase 3 — Migrations
+---
+status: planned
+priority: 3
+---
+
+# 3 — Migrations
 
 ## Description
 
-Initialize Alembic and generate the first migration from the ORM models defined in Phase 2. Apply the migration to the local PostgreSQL database. This phase has no new Python logic — it is purely about getting the schema into the database correctly.
+Initialize Alembic and generate the first migration from the ORM models defined in task 2. Apply the migration to the local PostgreSQL database. This task has no new Python logic — it is purely about getting the schema into the database correctly.
 
 ## Acceptance Criteria
 

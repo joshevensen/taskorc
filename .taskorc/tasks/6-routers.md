@@ -1,4 +1,9 @@
-# Phase 6 — Routers & Services
+---
+status: planned
+priority: 6
+---
+
+# 6 — Routers & Services
 
 ## Description
 

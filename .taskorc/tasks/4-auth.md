@@ -1,10 +1,15 @@
-# Phase 4 — Auth
+---
+status: planned
+priority: 4
+---
+
+# 4 — Auth
 
 ## Description
 
 Implement Personal Access Token (PAT) authentication. A PAT is generated once via `POST /auth/token`, stored as a bcrypt hash on the User record, and sent as a Bearer token on every subsequent request. No email, no magic links, no JWT. The CLI stores the raw token in `~/.config/taskorc/config.json` after generation — it is never returned by the API again.
 
-Do not move to Phase 5 until `get_current_user` is working and tested.
+Do not move to task 5 until `get_current_user` is working and tested.
 
 ## Acceptance Criteria
 
