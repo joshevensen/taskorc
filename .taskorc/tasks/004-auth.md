@@ -1,5 +1,5 @@
 ---
-status: planned
+status: complete
 priority: 4
 ---
 
@@ -13,13 +13,13 @@ Do not move to task 5 until `get_current_user` is working and tested.
 
 ## Acceptance Criteria
 
-- [ ] `POST /auth/token` accepts `name` and `email`, upserts the User record, generates a PAT, stores the bcrypt hash on User, and returns the raw token exactly once
-- [ ] The raw PAT is never stored — only the bcrypt hash. After generation, it cannot be retrieved via the API
-- [ ] `DELETE /auth/token` clears `pat_hash` on the User record (revokes access)
-- [ ] `get_current_user` reads the `Authorization: Bearer <pat>` header, finds the User, verifies the PAT against the stored hash, and returns the `User` ORM object
-- [ ] `get_current_user` raises HTTP 401 if the header is missing, the token doesn't match, or no User exists
-- [ ] PATs are prefixed with `orc_` for easy identification (e.g., `orc_a3f9...`)
-- [ ] PAT utilities are covered by unit tests: generate format, hash/verify roundtrip, wrong token rejection
+- [x] `POST /auth/token` accepts `name` and `email`, upserts the User record, generates a PAT, stores the bcrypt hash on User, and returns the raw token exactly once
+- [x] The raw PAT is never stored — only the bcrypt hash. After generation, it cannot be retrieved via the API
+- [x] `DELETE /auth/token` clears `pat_hash` on the User record (revokes access)
+- [x] `get_current_user` reads the `Authorization: Bearer <pat>` header, finds the User, verifies the PAT against the stored hash, and returns the `User` ORM object
+- [x] `get_current_user` raises HTTP 401 if the header is missing, the token doesn't match, or no User exists
+- [x] PATs are prefixed with `orc_` for easy identification (e.g., `orc_a3f9...`)
+- [x] PAT utilities are covered by unit tests: generate format, hash/verify roundtrip, wrong token rejection
 
 ## Subtasks
 
