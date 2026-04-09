@@ -1,5 +1,5 @@
 ---
-status: planned
+status: complete
 priority: 3
 ---
 
@@ -11,13 +11,13 @@ Initialize Alembic and generate the first migration from the ORM models defined 
 
 ## Acceptance Criteria
 
-- [ ] Alembic is initialized and `alembic/env.py` uses the async engine from `app/core/db.py`
-- [ ] `alembic/env.py` imports all models from `app/models` so autogenerate detects them
-- [ ] `alembic revision --autogenerate` produces a migration file with all six tables
-- [ ] The migration includes `CREATE TYPE` statements for all PostgreSQL enums before the tables that use them
-- [ ] `alembic upgrade head` applies cleanly against a fresh local database with no errors
-- [ ] `alembic downgrade base` reverses the migration cleanly (tables and enum types dropped)
-- [ ] `alembic current` reports the migration as applied after upgrade
+- [x] Alembic is initialized and `alembic/env.py` uses the async engine from `app/core/db.py`
+- [x] `alembic/env.py` imports all models from `app/models` so autogenerate detects them
+- [x] `alembic revision --autogenerate` produces a migration file with all six tables
+- [x] The migration includes `CREATE TYPE` statements for all PostgreSQL enums before the tables that use them
+- [x] `alembic upgrade head` applies cleanly against a fresh local database with no errors
+- [x] `alembic downgrade base` reverses the migration cleanly (tables and enum types dropped)
+- [x] `alembic current` reports the migration as applied after upgrade
 
 ## Subtasks
 
