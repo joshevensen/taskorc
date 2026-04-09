@@ -1,5 +1,5 @@
 ---
-status: planned
+status: in_progress
 priority: 5
 ---
 
