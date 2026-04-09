@@ -1,5 +1,5 @@
 ---
-status: in_progress
+status: complete
 priority: 5
 ---
 
@@ -11,14 +11,14 @@ Define all Pydantic v2 request and response schemas. These are the API's contrac
 
 ## Acceptance Criteria
 
-- [ ] One schema file per entity in `app/schemas/`
-- [ ] Every entity has distinct `Create`, `Update`, and `Response` schemas where applicable
-- [ ] `Update` schemas use `Optional` fields with `None` defaults (partial update pattern)
-- [ ] `Response` schemas include `id`, `created_at`, `updated_at` from the base model
-- [ ] Enum values in schemas match the PostgreSQL enum values exactly
-- [ ] JSONB fields are typed precisely: `subtasks` is `list[SubtaskItem]`, `acceptance_criteria` is `list[str] | None`, `tech_stack` is `list[str]`, `settings` is `dict[str, Any]`, `metadata` is `dict[str, Any] | None`
-- [ ] `SubtaskItem` schema has `id`, `description`, `prompt`, `completed` fields
-- [ ] All schemas are importable from `app/schemas/__init__.py`
+- [x] One schema file per entity in `app/schemas/`
+- [x] Every entity has distinct `Create`, `Update`, and `Response` schemas where applicable
+- [x] `Update` schemas use `Optional` fields with `None` defaults (partial update pattern)
+- [x] `Response` schemas include `id`, `created_at`, `updated_at` from the base model
+- [x] Enum values in schemas match the PostgreSQL enum values exactly
+- [x] JSONB fields are typed precisely: `subtasks` is `list[SubtaskItem]`, `acceptance_criteria` is `list[str] | None`, `tech_stack` is `list[str]`, `settings` is `dict[str, Any]`, `metadata` is `dict[str, Any] | None`
+- [x] `SubtaskItem` schema has `id`, `description`, `prompt`, `completed` fields
+- [x] All schemas are importable from `app/schemas/__init__.py`
 
 ## Subtasks
 
