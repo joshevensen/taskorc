@@ -9,7 +9,7 @@ hooks:
   Stop:
     - hooks:
         - type: command
-          command: "${CLAUDE_SKILL_DIR}/scripts/commit.sh"
+          command: "${CLAUDE_PROJECT_DIR}/.claude/skills/orc-build/scripts/commit.sh"
   PostToolUse:
     - matcher: "Edit|Write"
       hooks:

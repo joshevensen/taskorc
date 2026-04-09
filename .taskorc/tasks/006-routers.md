@@ -1,5 +1,5 @@
 ---
-status: planned
+status: complete
 priority: 6
 ---
 
@@ -11,16 +11,16 @@ Implement all API endpoints. One router + one service file per entity. The route
 
 ## Acceptance Criteria
 
-- [ ] All endpoints from the CLI Commands doc are implemented and return the correct HTTP status codes
-- [ ] Every router injects `get_current_user` via `Depends` — no unprotected endpoints except `/auth/*` and `/health`
-- [ ] Routers return Pydantic response schemas — no raw ORM objects in responses
-- [ ] Services use `AsyncSession` and `await` all DB calls
-- [ ] `GET /projects/{project_id}/tasks/next` returns the lowest `priority` value among `planned` tasks, or 404 if none
-- [ ] `PUT /tasks/{id}/subtasks` replaces the entire subtasks array atomically
-- [ ] `POST /tasks/{id}/subtasks/{subtask_id}/complete` sets the matching subtask's `completed` to `true` within the JSONB array
-- [ ] `POST /projects/{project_id}/logs` creates a log — no update or delete endpoints exist for logs
-- [ ] All routers are registered in `main.py` with appropriate prefixes and tags
-- [ ] FastAPI's auto-generated `/docs` shows all endpoints correctly
+- [x] All endpoints from the CLI Commands doc are implemented and return the correct HTTP status codes
+- [x] Every router injects `get_current_user` via `Depends` — no unprotected endpoints except `/auth/*` and `/health`
+- [x] Routers return Pydantic response schemas — no raw ORM objects in responses
+- [x] Services use `AsyncSession` and `await` all DB calls
+- [x] `GET /projects/{project_id}/tasks/next` returns the lowest `priority` value among `planned` tasks, or 404 if none
+- [x] `PUT /tasks/{id}/subtasks` replaces the entire subtasks array atomically
+- [x] `POST /tasks/{id}/subtasks/{subtask_id}/complete` sets the matching subtask's `completed` to `true` within the JSONB array
+- [x] `POST /projects/{project_id}/logs` creates a log — no update or delete endpoints exist for logs
+- [x] All routers are registered in `main.py` with appropriate prefixes and tags
+- [x] FastAPI's auto-generated `/docs` shows all endpoints correctly
 
 ## Subtasks
 

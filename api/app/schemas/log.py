@@ -2,7 +2,7 @@ import enum
 from typing import Any
 from uuid import UUID
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from .base import BaseResponse
 
@@ -29,4 +29,5 @@ class LogResponse(BaseResponse):
     duration: int | None
     outcome: LogOutcome
     summary: str | None
-    metadata: dict[str, Any] | None
+    # The ORM attribute is `metadata_` to avoid clashing with SQLAlchemy's Base.metadata
+    metadata: dict[str, Any] | None = Field(None, validation_alias="metadata_")
