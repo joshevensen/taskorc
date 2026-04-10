@@ -39,7 +39,7 @@ async def get_note(db: AsyncSession, note_id: UUID, user_id: UUID) -> Note:
     result = await db.execute(select(Note).where(Note.id == note_id))
     note = result.scalar_one_or_none()
     if note is None:
-        raise HTTPException(status_code=404, detail="Note not found")
+        raise HTTPException(status_code=403, detail="Forbidden")
     await assert_project_owner(db, note.project_id, user_id)
     return note
 
