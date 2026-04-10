@@ -1,5 +1,5 @@
 ---
-status: planned
+status: complete
 priority: 8
 ---
 
@@ -11,14 +11,14 @@ Write automated tests covering auth, CRUD, authorization, and business logic. Te
 
 ## Acceptance Criteria
 
-- [ ] `pytest` runs from `api/` with no configuration beyond setting `TEST_DATABASE_URL`
-- [ ] Fixtures provide: an async test client, a test database session, an authenticated user, and common seeded data (one project, one task, one note)
-- [ ] Auth tests cover: PAT generation, valid token acceptance, invalid token rejection, revocation
-- [ ] CRUD tests cover at least one happy-path test per endpoint (create, read, update, delete where applicable)
-- [ ] Authorization tests verify a second user cannot access the first user's resources (returns 403)
-- [ ] Business logic tests cover: `task/next` returns lowest priority planned task, subtask completion marks correct subtask, log endpoints have no update/delete routes
-- [ ] All tests pass against a clean test database with migrations applied
-- [ ] No test modifies the development database
+- [x] `pytest` runs from `api/` with no configuration beyond setting `TEST_DATABASE_URL`
+- [x] Fixtures provide: an async test client, a test database session, an authenticated user, and common seeded data (one project, one task, one note)
+- [x] Auth tests cover: PAT generation, valid token acceptance, invalid token rejection, revocation
+- [x] CRUD tests cover at least one happy-path test per endpoint (create, read, update, delete where applicable)
+- [x] Authorization tests verify a second user cannot access the first user's resources (returns 403)
+- [x] Business logic tests cover: `task/next` returns lowest priority planned task, subtask completion marks correct subtask, log endpoints have no update/delete routes
+- [x] All tests pass against a clean test database with migrations applied
+- [x] No test modifies the development database
 
 ## Subtasks
 
