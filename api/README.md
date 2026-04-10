@@ -34,6 +34,17 @@ api/
   pyproject.toml   # Dependencies
 ```
 
+## Configuration
+
+Copy `.env.example` to `.env` and fill in your values. Never commit `.env`.
+
+| Variable | Required | Description |
+|---|---|---|
+| `DATABASE_URL` | Yes | PostgreSQL async connection string — e.g. `postgresql+asyncpg://user:pass@localhost:5432/taskorc` |
+| `CORS_ORIGINS` | No | Comma-separated list of allowed CORS origins. Defaults to `http://localhost`. |
+
+For running tests, set `TEST_DATABASE_URL` to a separate database (e.g. `taskorc_test`). It is not read by the app itself — only by the test suite.
+
 ## Dependencies
 
 Add dependencies with uv:

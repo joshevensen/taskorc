@@ -1,5 +1,5 @@
 ---
-status: planned
+status: complete
 priority: 9
 ---
 
@@ -11,12 +11,12 @@ Make the API production-ready. This task does not add features — it adds robus
 
 ## Acceptance Criteria
 
-- [ ] All error responses return `{"detail": "..."}` JSON — no HTML error pages, no unhandled exceptions leaking stack traces
-- [ ] 404 responses are returned for missing resources, 403 for ownership violations, 422 for validation errors (FastAPI default)
-- [ ] Unhandled exceptions return 500 with `{"detail": "Internal server error"}` — no stack trace exposed
-- [ ] CORS is configured to allow only expected origins driven by `CORS_ORIGINS` env var
-- [ ] All tests still pass after hardening changes
-- [ ] Every env var the app reads is declared in `Settings`, present in `.env.example`, and documented in `README.md`
+- [x] All error responses return `{"detail": "..."}` JSON — no HTML error pages, no unhandled exceptions leaking stack traces
+- [x] 404 responses are returned for missing resources, 403 for ownership violations, 422 for validation errors (FastAPI default)
+- [x] Unhandled exceptions return 500 with `{"detail": "Internal server error"}` — no stack trace exposed
+- [x] CORS is configured to allow only expected origins driven by `CORS_ORIGINS` env var
+- [x] All tests still pass after hardening changes
+- [x] Every env var the app reads is declared in `Settings`, present in `.env.example`, and documented in `README.md`
 
 ## Subtasks
 
