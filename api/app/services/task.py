@@ -40,7 +40,7 @@ async def get_task(db: AsyncSession, task_id: UUID, user_id: UUID) -> Task:
     result = await db.execute(select(Task).where(Task.id == task_id))
     task = result.scalar_one_or_none()
     if task is None:
-        raise HTTPException(status_code=404, detail="Task not found")
+        raise HTTPException(status_code=403, detail="Forbidden")
     await assert_project_owner(db, task.project_id, user_id)
     return task
 
@@ -66,7 +66,7 @@ async def set_subtasks(db: AsyncSession, task_id: UUID, user_id: UUID, subtasks:
     return task
 
 
-async def complete_subtask(db: AsyncSession, task_id: UUID, subtask_id: str, user_id: UUID) -> Task:
+async def complete_subtask(db: AsyncSession, task_id: UUID, user_id: UUID, subtask_id: str) -> Task:
     task = await get_task(db, task_id, user_id)
     subtasks = task.subtasks or []
     matched = any(s.get("id") == subtask_id for s in subtasks)

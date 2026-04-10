@@ -47,7 +47,7 @@ git commit -m "$COMMIT_MSG"
 BRANCH="task/$(basename "$TASK_FILE" .md)"
 
 # Push — set upstream if this is the first push for this branch
-git push -u origin "$BRANCH"
+git push -u origin HEAD:"$BRANCH"
 
 # PR body — written by the build skill at closeout; fall back to a minimal body if missing
 PR_BODY_FILE="${CLAUDE_PROJECT_DIR}/.taskorc/tmp/pr-body.md"

@@ -69,7 +69,7 @@ async def get_artifact(db: AsyncSession, artifact_id: UUID, user_id: UUID) -> Ar
     result = await db.execute(select(Artifact).where(Artifact.id == artifact_id))
     artifact = result.scalar_one_or_none()
     if artifact is None:
-        raise HTTPException(status_code=404, detail="Artifact not found")
+        raise HTTPException(status_code=403, detail="Forbidden")
     await _assert_artifact_owner(db, artifact, user_id)
     return artifact
 

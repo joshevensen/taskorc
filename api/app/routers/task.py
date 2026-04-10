@@ -82,4 +82,4 @@ async def complete_subtask(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await task_service.complete_subtask(db, id, subtask_id, current_user.id)
+    return await task_service.complete_subtask(db, id, current_user.id, subtask_id)

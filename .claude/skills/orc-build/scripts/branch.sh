@@ -26,5 +26,13 @@ if git rev-parse --verify "$BRANCH" &>/dev/null; then
   exit 0
 fi
 
+# If the branch exists on origin but not locally, track it
+if git ls-remote --exit-code --heads origin "$BRANCH" &>/dev/null; then
+  echo "branch.sh: branch '$BRANCH' exists on origin, checking it out as tracking branch"
+  git fetch origin "$BRANCH" --quiet
+  git checkout --track -b "$BRANCH" "origin/$BRANCH"
+  exit 0
+fi
+
 git checkout -b "$BRANCH" origin/main
 echo "branch.sh: created and checked out '$BRANCH' from origin/main"
