@@ -75,6 +75,18 @@ Display:
 
 💬 {author}: {comment body}
 ─────────────────────────────────────────
+```
+
+Then, before asking for a decision, **read the relevant file(s) and analyze the comment**. Provide a concise breakdown covering:
+
+- **Why this comment was made** — what problem or pattern the reviewer is pointing at
+- **Is it valid?** — assess whether the concern applies to this codebase, this use case, and this context. Copilot and automated reviewers are not always right; push back when the concern doesn't hold.
+- **If fixing: what the change would look like** — describe or sketch the code change
+- **If skipping: what the reply would say** — draft the justification so the user can judge whether it's convincing
+
+Then display:
+```
+─────────────────────────────────────────
 Options: (f)ix  (s)kip  (c)omment
 ```
 
