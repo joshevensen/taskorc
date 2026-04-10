@@ -2,7 +2,6 @@
 name: orc-attach
 description: Attach external context to a task — a URL, Figma link, error log, reference doc, or anything else worth keeping alongside the work.
 argument-hint: "[url] [task ID]"
-disable-model-invocation: true
 allowed-tools: Read Write Glob
 model: claude-haiku-4-5-20251001
 ---

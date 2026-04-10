@@ -1,7 +1,6 @@
 ---
 name: orc-prioritize
 description: Review and reorder the task queue. Presents all active tasks with context and facilitates a prioritization conversation. Can recommend an order and explain why.
-disable-model-invocation: true
 allowed-tools: Read Write Glob
 model: claude-sonnet-4-6
 ---

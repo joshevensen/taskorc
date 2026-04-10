@@ -2,7 +2,6 @@
 name: orc-hold
 description: Put a task on hold. Sets status to on_hold so it's out of the active queue but not cancelled.
 argument-hint: "[task ID or filename]"
-disable-model-invocation: true
 allowed-tools: Read Write Glob
 model: claude-haiku-4-5-20251001
 ---

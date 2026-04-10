@@ -2,7 +2,6 @@
 name: orc-create
 description: Quickly capture a task idea as a draft. Just needs a title and description — run /orc-plan when ready to flesh it out with acceptance criteria and subtasks.
 argument-hint: "[brief description of what to build]"
-disable-model-invocation: true
 allowed-tools: Read Write Glob
 model: claude-haiku-4-5-20251001
 ---

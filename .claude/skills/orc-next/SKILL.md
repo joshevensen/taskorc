@@ -1,7 +1,6 @@
 ---
 name: orc-next
 description: Find the highest-priority planned task and offer to start building it immediately.
-disable-model-invocation: true
 allowed-tools: Read Glob
 model: claude-haiku-4-5-20251001
 ---

@@ -1,7 +1,6 @@
 ---
 name: orc-inbox
 description: Show all tasks grouped by status. Use to see what needs attention, what's in progress, and what's planned next.
-disable-model-invocation: true
 allowed-tools: Read Glob
 model: claude-haiku-4-5-20251001
 ---

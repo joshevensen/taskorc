@@ -2,7 +2,6 @@
 name: orc-build
 description: Execute a task by working through its subtasks in order, then confirm acceptance criteria before closing it out. Pass the task ID or filename.
 argument-hint: "[task ID or filename]"
-disable-model-invocation: true
 allowed-tools: Read Write Edit Bash Glob Grep
 model: claude-sonnet-4-6
 hooks:
