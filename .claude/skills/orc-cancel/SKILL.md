@@ -2,7 +2,6 @@
 name: orc-cancel
 description: Cancel a task. Asks for confirmation before setting status to cancelled.
 argument-hint: "[task ID or filename]"
-disable-model-invocation: true
 allowed-tools: Read Write Glob
 model: claude-haiku-4-5-20251001
 ---

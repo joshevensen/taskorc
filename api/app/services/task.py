@@ -7,9 +7,11 @@ from sqlalchemy.orm.attributes import flag_modified
 
 from app.models.task import Task
 from app.schemas.task import SubtaskItem, TaskCreate, TaskStatus, TaskUpdate
+from app.services.ownership import assert_project_owner
 
 
-async def create_task(db: AsyncSession, project_id: UUID, data: TaskCreate) -> Task:
+async def create_task(db: AsyncSession, project_id: UUID, user_id: UUID, data: TaskCreate) -> Task:
+    await assert_project_owner(db, project_id, user_id)
     task = Task(project_id=project_id, **data.model_dump())
     db.add(task)
     await db.commit()
@@ -20,9 +22,11 @@ async def create_task(db: AsyncSession, project_id: UUID, data: TaskCreate) -> T
 async def list_tasks(
     db: AsyncSession,
     project_id: UUID,
+    user_id: UUID,
     status: TaskStatus | None = None,
     limit: int | None = None,
 ) -> list[Task]:
+    await assert_project_owner(db, project_id, user_id)
     query = select(Task).where(Task.project_id == project_id)
     if status is not None:
         query = query.where(Task.status == status.value)
@@ -32,16 +36,17 @@ async def list_tasks(
     return list(result.scalars().all())
 
 
-async def get_task(db: AsyncSession, task_id: UUID) -> Task:
+async def get_task(db: AsyncSession, task_id: UUID, user_id: UUID) -> Task:
     result = await db.execute(select(Task).where(Task.id == task_id))
     task = result.scalar_one_or_none()
     if task is None:
-        raise HTTPException(status_code=404, detail="Task not found")
+        raise HTTPException(status_code=403, detail="Forbidden")
+    await assert_project_owner(db, task.project_id, user_id)
     return task
 
 
-async def update_task(db: AsyncSession, task_id: UUID, data: TaskUpdate) -> Task:
-    task = await get_task(db, task_id)
+async def update_task(db: AsyncSession, task_id: UUID, user_id: UUID, data: TaskUpdate) -> Task:
+    task = await get_task(db, task_id, user_id)
     for field, value in data.model_dump(exclude_none=True).items():
         # Store enum values as their string value for the DB column
         if hasattr(value, "value"):
@@ -52,8 +57,8 @@ async def update_task(db: AsyncSession, task_id: UUID, data: TaskUpdate) -> Task
     return task
 
 
-async def set_subtasks(db: AsyncSession, task_id: UUID, subtasks: list[SubtaskItem]) -> Task:
-    task = await get_task(db, task_id)
+async def set_subtasks(db: AsyncSession, task_id: UUID, user_id: UUID, subtasks: list[SubtaskItem]) -> Task:
+    task = await get_task(db, task_id, user_id)
     task.subtasks = [s.model_dump() for s in subtasks]
     flag_modified(task, "subtasks")
     await db.commit()
@@ -61,8 +66,8 @@ async def set_subtasks(db: AsyncSession, task_id: UUID, subtasks: list[SubtaskIt
     return task
 
 
-async def complete_subtask(db: AsyncSession, task_id: UUID, subtask_id: str) -> Task:
-    task = await get_task(db, task_id)
+async def complete_subtask(db: AsyncSession, task_id: UUID, user_id: UUID, subtask_id: str) -> Task:
+    task = await get_task(db, task_id, user_id)
     subtasks = task.subtasks or []
     matched = any(s.get("id") == subtask_id for s in subtasks)
     if not matched:
@@ -78,7 +83,8 @@ async def complete_subtask(db: AsyncSession, task_id: UUID, subtask_id: str) -> 
     return task
 
 
-async def next_task(db: AsyncSession, project_id: UUID) -> Task | None:
+async def next_task(db: AsyncSession, project_id: UUID, user_id: UUID) -> Task | None:
+    await assert_project_owner(db, project_id, user_id)
     result = await db.execute(
         select(Task)
         .where(Task.project_id == project_id)

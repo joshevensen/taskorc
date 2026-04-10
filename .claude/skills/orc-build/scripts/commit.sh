@@ -1,6 +1,8 @@
 #!/bin/bash
 # Stop hook — runs after orc-build finishes.
-# Commits if the task file shows status: complete.
+# Commits, pushes, and opens a PR if the task file shows status: complete.
+
+set -euo pipefail
 
 POINTER_FILE="${CLAUDE_PROJECT_DIR}/.taskorc/tmp/current-task"
 
@@ -38,4 +40,27 @@ if git diff --cached --quiet; then
   exit 0
 fi
 
-git commit -m "feat: ${TASK_ID} — ${TITLE}"
+COMMIT_MSG="feat: ${TASK_ID} — ${TITLE}"
+git commit -m "$COMMIT_MSG"
+
+# Derive expected branch name
+BRANCH="task/$(basename "$TASK_FILE" .md)"
+
+# Push — set upstream if this is the first push for this branch
+git push -u origin HEAD:"$BRANCH"
+
+# PR body — written by the build skill at closeout; fall back to a minimal body if missing
+PR_BODY_FILE="${CLAUDE_PROJECT_DIR}/.taskorc/tmp/pr-body.md"
+
+if [ -f "$PR_BODY_FILE" ]; then
+  PR_BODY=$(cat "$PR_BODY_FILE")
+  rm -f "$PR_BODY_FILE"
+else
+  PR_BODY="Task **${TASK_ID} — ${TITLE}** completed via \`/orc:build\`."
+fi
+
+gh pr create \
+  --title "$COMMIT_MSG" \
+  --body "$PR_BODY" \
+  --base main \
+  --head "$BRANCH"

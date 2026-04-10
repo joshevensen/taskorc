@@ -2,7 +2,6 @@
 name: orc-build
 description: Execute a task by working through its subtasks in order, then confirm acceptance criteria before closing it out. Pass the task ID or filename.
 argument-hint: "[task ID or filename]"
-disable-model-invocation: true
 allowed-tools: Read Write Edit Bash Glob Grep
 model: claude-sonnet-4-6
 hooks:
@@ -45,19 +44,30 @@ Execute a task by working through its subtasks, then confirm acceptance criteria
    ```
    Where `{filename}` is the task filename, e.g. `004-auth.md`.
 
-5. **Update task status** — set `status: in_progress` in the task file frontmatter and write it.
+5. **Create the task branch** off the latest remote main:
+   ```bash
+   bash .claude/skills/orc-build/scripts/branch.sh "{filename}"
+   ```
+   This fetches `origin/main` and creates `task/{slug}` (e.g. `task/004-auth`). If the branch already exists it checks it out instead.
 
-6. **Execute subtasks in order**, one at a time:
+6. **Update task status** — set `status: in_progress` in the task file frontmatter and write it.
+
+7. **Execute subtasks in order**, one at a time:
    - Display the subtask number and title before starting
    - Execute the subtask's `**Prompt:**` as a Claude Code operation — read code, create files, edit, run commands as needed
    - Confirm it's complete before moving to the next
    - If a subtask fails, leave task status as `in_progress` and stop — report what happened and what completed. Do not continue.
 
-7. **Confirm acceptance criteria.** Display the full acceptance criteria list and ask: "Are all of these met?" Surface any unchecked items clearly. Do not proceed without explicit confirmation.
+8. **Confirm acceptance criteria.** Display the full acceptance criteria list and ask: "Are all of these met?" Surface any unchecked items clearly. Do not proceed without explicit confirmation.
 
-8. **Close out** — check all acceptance criteria boxes (`- [ ]` → `- [x]`), set `status: complete`, and write the task file.
+9. **Close out** — check all acceptance criteria boxes (`- [ ]` → `- [x]`), set `status: complete`, and write the task file.
 
-9. Say: "Task {ID} complete. The Stop hook will commit the changes."
+10. **Write the PR body** to `.taskorc/tmp/pr-body.md`. The commit script reads this file verbatim — write it well. Include:
+    - A short **Summary** paragraph (2–4 sentences) explaining what this task accomplished and why it matters in the context of the broader system
+    - A **Changes** section listing the key files created or modified, with one-line notes on what each does
+    - An **Acceptance criteria** section — copy the full checklist from the task file, but uncheck all boxes (`- [x]` → `- [ ]`) so reviewers can verify each item themselves
+
+11. Say: "Task {ID} complete. The Stop hook will commit, push, and open a pull request."
 
 ## Rules
 

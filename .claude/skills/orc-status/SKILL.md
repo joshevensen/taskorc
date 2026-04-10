@@ -2,7 +2,6 @@
 name: orc-status
 description: Show the full status of a specific task — description, acceptance criteria, subtasks, and linked artifacts.
 argument-hint: "[task ID or filename]"
-disable-model-invocation: true
 allowed-tools: Read Glob
 model: claude-haiku-4-5-20251001
 ---

@@ -19,7 +19,7 @@ async def create_log(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await log_service.create_log(db, project_id, data)
+    return await log_service.create_log(db, project_id, current_user.id, data)
 
 
 @router.get("/projects/{project_id}/logs", response_model=list[LogResponse])
@@ -31,4 +31,4 @@ async def list_logs(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await log_service.list_logs(db, project_id, skill=skill, task_id=task_id, limit=limit)
+    return await log_service.list_logs(db, project_id, current_user.id, skill=skill, task_id=task_id, limit=limit)

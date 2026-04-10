@@ -19,7 +19,7 @@ async def create_note(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await note_service.create_note(db, project_id, data)
+    return await note_service.create_note(db, project_id, current_user.id, data)
 
 
 @router.get("/projects/{project_id}/notes", response_model=list[NoteResponse])
@@ -30,7 +30,7 @@ async def list_notes(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await note_service.list_notes(db, project_id, category=category, limit=limit)
+    return await note_service.list_notes(db, project_id, current_user.id, category=category, limit=limit)
 
 
 @router.get("/notes/{id}", response_model=NoteResponse)
@@ -39,7 +39,7 @@ async def get_note(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await note_service.get_note(db, id)
+    return await note_service.get_note(db, id, current_user.id)
 
 
 @router.patch("/notes/{id}", response_model=NoteResponse)
@@ -49,7 +49,7 @@ async def update_note(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await note_service.update_note(db, id, data)
+    return await note_service.update_note(db, id, current_user.id, data)
 
 
 @router.delete("/notes/{id}", status_code=status.HTTP_204_NO_CONTENT)
@@ -58,5 +58,5 @@ async def delete_note(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    await note_service.delete_note(db, id)
+    await note_service.delete_note(db, id, current_user.id)
     return Response(status_code=status.HTTP_204_NO_CONTENT)

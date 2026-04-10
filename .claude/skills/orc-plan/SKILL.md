@@ -2,7 +2,6 @@
 name: orc-plan
 description: Take a draft task and flesh it out into a full spec with acceptance criteria and subtasks, then mark it planned and ready to build.
 argument-hint: "[task ID or filename]"
-disable-model-invocation: true
 allowed-tools: Read Write Glob
 model: claude-sonnet-4-6
 ---

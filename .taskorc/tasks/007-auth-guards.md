@@ -1,5 +1,5 @@
 ---
-status: planned
+status: complete
 priority: 7
 ---
 
@@ -13,14 +13,14 @@ The guards live in services, not routers. Routers pass the current user in; serv
 
 ## Acceptance Criteria
 
-- [ ] A user cannot read, update, or delete another user's Projects — returns 403
-- [ ] A user cannot read, create, update, or delete Tasks belonging to a Project they do not own — returns 403
-- [ ] A user cannot read, create, update, or delete Notes belonging to a Project they do not own — returns 403
-- [ ] A user cannot read Logs belonging to a Project they do not own — returns 403
-- [ ] A user cannot read, update Artifacts attached to a Project or Task they do not own — returns 403
-- [ ] All checks raise `HTTPException(status_code=403, detail="Forbidden")` — never 404 (do not leak whether the resource exists)
-- [ ] Ownership checks are in service functions, not in routers
-- [ ] A reusable `assert_project_owner(db, project_id, user_id)` helper avoids duplicating the ownership query across services
+- [x] A user cannot read, update, or delete another user's Projects — returns 403
+- [x] A user cannot read, create, update, or delete Tasks belonging to a Project they do not own — returns 403
+- [x] A user cannot read, create, update, or delete Notes belonging to a Project they do not own — returns 403
+- [x] A user cannot read Logs belonging to a Project they do not own — returns 403
+- [x] A user cannot read, update Artifacts attached to a Project or Task they do not own — returns 403
+- [x] All checks raise `HTTPException(status_code=403, detail="Forbidden")` — never 404 (do not leak whether the resource exists)
+- [x] Ownership checks are in service functions, not in routers
+- [x] A reusable `assert_project_owner(db, project_id, user_id)` helper avoids duplicating the ownership query across services
 
 ## Subtasks
 
