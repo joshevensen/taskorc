@@ -45,19 +45,25 @@ Execute a task by working through its subtasks, then confirm acceptance criteria
    ```
    Where `{filename}` is the task filename, e.g. `004-auth.md`.
 
-5. **Update task status** — set `status: in_progress` in the task file frontmatter and write it.
+5. **Create the task branch** off the latest remote main:
+   ```bash
+   bash .claude/skills/orc-build/scripts/branch.sh "{filename}"
+   ```
+   This fetches `origin/main` and creates `task/{slug}` (e.g. `task/004-auth`). If the branch already exists it checks it out instead.
 
-6. **Execute subtasks in order**, one at a time:
+6. **Update task status** — set `status: in_progress` in the task file frontmatter and write it.
+
+7. **Execute subtasks in order**, one at a time:
    - Display the subtask number and title before starting
    - Execute the subtask's `**Prompt:**` as a Claude Code operation — read code, create files, edit, run commands as needed
    - Confirm it's complete before moving to the next
    - If a subtask fails, leave task status as `in_progress` and stop — report what happened and what completed. Do not continue.
 
-7. **Confirm acceptance criteria.** Display the full acceptance criteria list and ask: "Are all of these met?" Surface any unchecked items clearly. Do not proceed without explicit confirmation.
+8. **Confirm acceptance criteria.** Display the full acceptance criteria list and ask: "Are all of these met?" Surface any unchecked items clearly. Do not proceed without explicit confirmation.
 
-8. **Close out** — check all acceptance criteria boxes (`- [ ]` → `- [x]`), set `status: complete`, and write the task file.
+9. **Close out** — check all acceptance criteria boxes (`- [ ]` → `- [x]`), set `status: complete`, and write the task file.
 
-9. Say: "Task {ID} complete. The Stop hook will commit the changes."
+10. Say: "Task {ID} complete. The Stop hook will commit, push, and open a pull request."
 
 ## Rules
 

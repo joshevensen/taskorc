@@ -28,7 +28,7 @@ async def list_artifacts(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await artifact_service.list_artifacts(db, parent_type, parent_id)
+    return await artifact_service.list_artifacts(db, parent_type, parent_id, current_user.id)
 
 
 @router.get("/{id}", response_model=ArtifactResponse)
@@ -37,7 +37,7 @@ async def get_artifact(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await artifact_service.get_artifact(db, id)
+    return await artifact_service.get_artifact(db, id, current_user.id)
 
 
 @router.patch("/{id}", response_model=ArtifactResponse)
@@ -47,4 +47,4 @@ async def update_artifact(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await artifact_service.update_artifact(db, id, data)
+    return await artifact_service.update_artifact(db, id, current_user.id, data)

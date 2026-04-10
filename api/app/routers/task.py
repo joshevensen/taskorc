@@ -19,7 +19,7 @@ async def create_task(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await task_service.create_task(db, project_id, data)
+    return await task_service.create_task(db, project_id, current_user.id, data)
 
 
 @router.get("/projects/{project_id}/tasks/next", response_model=TaskResponse)
@@ -29,7 +29,7 @@ async def get_next_task(
     db: AsyncSession = Depends(get_db),
 ):
     # Must be registered before /projects/{project_id}/tasks to avoid route conflict
-    task = await task_service.next_task(db, project_id)
+    task = await task_service.next_task(db, project_id, current_user.id)
     if task is None:
         raise HTTPException(status_code=404, detail="No planned tasks with priority set")
     return task
@@ -43,7 +43,7 @@ async def list_tasks(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await task_service.list_tasks(db, project_id, status=status, limit=limit)
+    return await task_service.list_tasks(db, project_id, current_user.id, status=status, limit=limit)
 
 
 @router.get("/tasks/{id}", response_model=TaskResponse)
@@ -52,7 +52,7 @@ async def get_task(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await task_service.get_task(db, id)
+    return await task_service.get_task(db, id, current_user.id)
 
 
 @router.patch("/tasks/{id}", response_model=TaskResponse)
@@ -62,7 +62,7 @@ async def update_task(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await task_service.update_task(db, id, data)
+    return await task_service.update_task(db, id, current_user.id, data)
 
 
 @router.put("/tasks/{id}/subtasks", response_model=TaskResponse)
@@ -72,7 +72,7 @@ async def set_subtasks(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await task_service.set_subtasks(db, id, subtasks)
+    return await task_service.set_subtasks(db, id, current_user.id, subtasks)
 
 
 @router.post("/tasks/{id}/subtasks/{subtask_id}/complete", response_model=TaskResponse)
@@ -82,4 +82,4 @@ async def complete_subtask(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await task_service.complete_subtask(db, id, subtask_id)
+    return await task_service.complete_subtask(db, id, subtask_id, current_user.id)

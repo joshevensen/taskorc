@@ -35,7 +35,7 @@ async def get_project(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await project_service.get_project(db, id)
+    return await project_service.get_project(db, id, current_user.id)
 
 
 @router.patch("/{id}", response_model=ProjectResponse)
@@ -45,4 +45,4 @@ async def update_project(
     current_user: User = Depends(get_current_user),
     db: AsyncSession = Depends(get_db),
 ):
-    return await project_service.update_project(db, id, data)
+    return await project_service.update_project(db, id, current_user.id, data)
