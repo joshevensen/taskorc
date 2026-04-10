@@ -62,7 +62,12 @@ Execute a task by working through its subtasks, then confirm acceptance criteria
 
 9. **Close out** — check all acceptance criteria boxes (`- [ ]` → `- [x]`), set `status: complete`, and write the task file.
 
-10. Say: "Task {ID} complete. The Stop hook will commit, push, and open a pull request."
+10. **Write the PR body** to `.taskorc/tmp/pr-body.md`. The commit script reads this file verbatim — write it well. Include:
+    - A short **Summary** paragraph (2–4 sentences) explaining what this task accomplished and why it matters in the context of the broader system
+    - A **Changes** section listing the key files created or modified, with one-line notes on what each does
+    - An **Acceptance criteria** section — copy the full checklist from the task file, but uncheck all boxes (`- [x]` → `- [ ]`) so reviewers can verify each item themselves
+
+11. Say: "Task {ID} complete. The Stop hook will commit, push, and open a pull request."
 
 ## Rules
 

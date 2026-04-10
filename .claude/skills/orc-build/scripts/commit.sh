@@ -49,23 +49,15 @@ BRANCH="task/$(basename "$TASK_FILE" .md)"
 # Push — set upstream if this is the first push for this branch
 git push -u origin "$BRANCH"
 
-# Build PR body from acceptance criteria in the task file
-# Extract lines between the acceptance criteria header and the next ## section
-AC_LINES=$(awk '/^## Acceptance Criteria/,/^## /' "$TASK_PATH" \
-  | grep -v '^## ' \
-  | grep -v '^[[:space:]]*$' \
-  | sed 's/- \[x\]/- [ ]/g')  # uncheck boxes so reviewers verify themselves
+# PR body — written by the build skill at closeout; fall back to a minimal body if missing
+PR_BODY_FILE="${CLAUDE_PROJECT_DIR}/.taskorc/tmp/pr-body.md"
 
-PR_BODY="$(cat <<EOF
-## What was done
-
-Task **${TASK_ID} — ${TITLE}** was completed via \`/orc:build\`.
-
-## How to test
-
-${AC_LINES}
-EOF
-)"
+if [ -f "$PR_BODY_FILE" ]; then
+  PR_BODY=$(cat "$PR_BODY_FILE")
+  rm -f "$PR_BODY_FILE"
+else
+  PR_BODY="Task **${TASK_ID} — ${TITLE}** completed via \`/orc:build\`."
+fi
 
 gh pr create \
   --title "$COMMIT_MSG" \
